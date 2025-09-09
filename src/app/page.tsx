@@ -1,103 +1,109 @@
 import Image from "next/image";
+import React from 'react';
 
-export default function Home() {
+// Define a type for a single feature object for better type safety
+type Feature = {
+  id: number;
+  title: string;
+  description: string;
+  svgPath: string;
+  svgColor: string;
+};
+
+// Define an array of feature objects with their types
+const features: Feature[] = [
+  {
+    id: 1,
+    title: "Responsive Design",
+    description: "Your site will look great on any device, from a phone to a desktop.",
+    svgPath: "M9.75 17L10.5 19.5M10.5 19.5L13.5 19.5M13.5 19.5L14.25 17M12 21a9 9 0 100-18 9 9 0 000 18z",
+    svgColor: "text-indigo-500"
+  },
+  {
+    id: 2,
+    title: "High Performance",
+    description: "Fast loading times ensure a seamless user experience for your visitors.",
+    svgPath: "M13 10V3L4 14h7v7l9-11h-7z",
+    svgColor: "text-green-500"
+  },
+  {
+    id: 3,
+    title: "Modern Aesthetics",
+    description: "Designed with a clean and modern look to captivate your audience.",
+    svgPath: "M12 11c0 3.866-3 7-3 7s3.134 3 7 3c3.866 0 7-3 7-7s-3.134-7-7-7c-3.866 0-7 3-7 7z",
+    svgColor: "text-yellow-500"
+  }
+];
+
+const  Home=()=> {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+    <>
+      <div className="bg-gray-100 text-gray-800 font-sans">
+
+      {/* Header Component */}
+      <header className="bg-white shadow-sm py-4">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <a href="#" className="text-2xl font-bold text-gray-900">
+            MySite
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <nav>
+            <ul className="flex space-x-6">
+              <li><a href="#" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Home</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">About</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Services</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Contact</a></li>
+            </ul>
+          </nav>
         </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-12">
+        {/* Hero Section Component */}
+        <section className="bg-white rounded-3xl shadow-lg p-8 md:p-16 mb-12">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+              Build Your Website Today
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              A beautiful, responsive, and modern web presence is just a few clicks away. Get started now and bring your ideas to life.
+            </p>
+            <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-indigo-600 text-white shadow hover:bg-indigo-700/90 h-9 px-4 py-2">
+              Get Started
+            </button>
+          </div>
+        </section>
+
+        {/* Features Section Component - now uses .map() */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature) => (
+              <div key={feature.id} className="bg-white rounded-3xl shadow-lg p-6 text-center transform transition-transform hover:scale-105">
+                <svg className={`w-16 h-16 ${feature.svgColor} mx-auto mb-4`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={feature.svgPath}></path>
+                </svg>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer Component */}
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p>&copy; 2024 MySite. All rights reserved.</p>
+        </div>
       </footer>
     </div>
+
+
+
+   
+    </>
+    
   );
 }
+export default Home;
