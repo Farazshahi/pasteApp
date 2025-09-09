@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client"
 import React from 'react';
 
 // Define a type for a single feature object for better type safety
